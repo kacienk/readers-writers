@@ -11,11 +11,20 @@ public class Reader extends Thread{
     Random random = new Random();
     private int id;
 
+    /**
+     * Creates a Reader with the given ID that reads the resource of given ReadingRoom.
+     *
+     * @param readingRoom ReadingRoom which resource Reader will read.
+     * @param id ID of the Reader.
+     */
     public Reader(ReadingRoom readingRoom, int id) {
         this.readingRoom =  readingRoom;
         this.id = id;
     }
 
+    /**
+     * Runs Reader thread.
+     */
     @Override
     public void run() {
         try {

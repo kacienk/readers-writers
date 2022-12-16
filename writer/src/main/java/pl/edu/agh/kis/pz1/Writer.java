@@ -9,13 +9,22 @@ public class Writer extends Thread {
     private static final Logger logger = LogManager.getLogger(Writer.class);
     private final ReadingRoom readingRoom;
     private final Random random = new Random();
-    int id;
+    private int id;
 
+    /**
+     * Creates a Writer with the given ID that writes to the resource of given ReadingRoom.
+     *
+     * @param readingRoom ReadingRoom to which resource Writer will write.
+     * @param id ID of the Writer.
+     */
     Writer(ReadingRoom readingRoom, int id) {
         this.readingRoom = readingRoom;
         this.id = id;
     }
 
+    /**
+     * Runs Writer thread.
+     */
     @Override
     public void run() {
         try {
