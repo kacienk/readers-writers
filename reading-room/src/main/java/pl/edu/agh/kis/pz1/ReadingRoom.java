@@ -17,8 +17,9 @@ import java.util.concurrent.Semaphore;
 public class ReadingRoom {
     private static final Logger logger = LogManager.getLogger(ReadingRoom.class);
     private static final int MAX_NUMBER_OF_READERS = 5;
-    private final Semaphore writeSemaphore = new Semaphore(1);
     private final Semaphore readSemaphore = new Semaphore(MAX_NUMBER_OF_READERS, true);
+    private final Semaphore readerQueueSemaphore = new Semaphore(1);
+    private final Semaphore writerQueueSemaphore = new Semaphore(1);
     private String resource = "default";
     private int writersInQueue = 0;
     private int readersInQueue = 0;
@@ -34,15 +35,19 @@ public class ReadingRoom {
      * For more information see {@link java.lang.InterruptedException}
      */
     public void requestRead(int id) throws InterruptedException {
+        readerQueueSemaphore.acquire();
         logger.info("Reader {} wants to enter the reading room.", id);
         this.readersInQueue++;
         logger.info("Readers in queue: {}", this.readersInQueue);
+        readerQueueSemaphore.release();
 
         readSemaphore.acquire();
 
+        readerQueueSemaphore.acquire();
         this.readersInQueue--;
         logger.info("Reader {} entered to enter the reading room.", id);
         logger.info("Readers in queue: {}", this.readersInQueue);
+        readerQueueSemaphore.release();
     }
 
     /**
@@ -71,16 +76,19 @@ public class ReadingRoom {
      * For more information see {@link java.lang.InterruptedException}
      */
     public void requestWrite(int id) throws InterruptedException {
+        writerQueueSemaphore.acquire();
         logger.info("Writer {} wants to enter the reading room.", id);
         this.writersInQueue++;
         logger.info("Writers in queue: {}", this.writersInQueue);
+        writerQueueSemaphore.release();
 
         readSemaphore.acquire(MAX_NUMBER_OF_READERS);
-        writeSemaphore.acquire();
 
+        writerQueueSemaphore.acquire();
         this.writersInQueue--;
         logger.info("Writer {} entered reading room.", id);
         logger.info("Writers in queue: {}", this.writersInQueue);
+        writerQueueSemaphore.release();
     }
 
     /**
@@ -91,12 +99,11 @@ public class ReadingRoom {
      * @return Returns value of resource read by Reader thread.
      */
     public String finishWrite(int id) {
-        this.resource = "Set by writer" + id + ".";
+        this.resource = "Set by writer " + id + ".";
         logger.info("Writer {} written to the resource.", id);
 
         logger.info("Writer {} left the reading room.", id);
         readSemaphore.release(MAX_NUMBER_OF_READERS);
-        writeSemaphore.release();
 
         return this.resource;
     }

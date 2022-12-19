@@ -5,6 +5,11 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.Random;
 
+/**
+ * Writer thread implementation in readers-writers problem.
+ *
+ * @author Kacper Cienkosz
+ */
 public class Writer extends Thread {
     private static final Logger logger = LogManager.getLogger(Writer.class);
     private final ReadingRoom readingRoom;
