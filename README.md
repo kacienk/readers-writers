@@ -5,17 +5,17 @@ This is implementation of well known concurrency problem called readers writers 
 ### Console logs
 
 Program logs to the console following information:
-	* Which reader wants to enter the reading room.
-	* Readers in queue to the reading room.
-	* Which reader entered the reading room.
-	* Readers in the reading room.
-	* What reader read.
-	* Which reader left the reading room.
-	* Which writer wants to enter the reading room.
-	* Writers in queue.
-	* Which writer entered the reading room.
-	* Which writer has written to the resource.
-	* Which writer left the reading room.
+* Which reader wants to enter the reading room.
+* Readers in queue to the reading room.
+* Which reader entered the reading room.
+* Readers in the reading room.
+* What reader read.
+* Which reader left the reading room.
+* Which writer wants to enter the reading room.
+* Writers in queue.
+* Which writer entered the reading room.
+* Which writer has written to the resource.
+* Which writer left the reading room.
   
   ### Setup
 
