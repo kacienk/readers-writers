@@ -1,6 +1,6 @@
 # readers-writers
 
-This is implementation of well known concurrency problem called readers writers problem. Class ReadingRoom is a wrapper of the shared resource and allows Readers/Writers to read/write the resource synchronously. Only one Writer at the moment can write to the resource and Readers are not allowed to read the resource while Writer is writing. Up to 5 readers can read the resource at one time if and only if Writers are not writing to the resource in that time. Semaphore that manages the access to the reasource is fair. That means if writer is on the front of the queue of the waiting threads, then Readers that are waiting won't be let in to read the resource. This implementetion is starvation-free. Class Writer extends Thread. Its sole purpose is to try to write to the resource in infinite loop. Class Reader extends Thread. Its sole purpose is to try to read the resource in infinite loop. Writing/reading threads can acquire resource for time that varies between 1 and 3 seconds. Readers and Writers objects connected to the same resource should share the same ReadingRoom object.
+  This is implementation of well known concurrency problem called readers writers problem. Class ReadingRoom is a wrapper of the shared resource and allows Readers/Writers to read/write the resource synchronously. Only one Writer at the moment can write to the resource and Readers are not allowed to read the resource while Writer is writing. Up to 5 readers can read the resource at one time if and only if Writers are not writing to the resource in that time. Semaphore that manages the access to the reasource is fair. That means if writer is on the front of the queue of the waiting threads, then Readers that are waiting won't be let in to read the resource. This implementetion is starvation-free. Class Writer extends Thread. Its sole purpose is to try to write to the resource in infinite loop. Class Reader extends Thread. Its sole purpose is to try to read the resource in infinite loop. Writing/reading threads can acquire resource for time that varies between 1 and 3 seconds. Readers and Writers objects connected to the same resource should share the same ReadingRoom object.
 
 ### Console logs
 
@@ -17,7 +17,7 @@ Program logs to the console following information:
 * Which writer has written to the resource.
 * Which writer left the reading room.
   
-  ### Setup
+### Setup
 
 To run this program run from the parent directory comand mvn package and after that java -jar main/target/main-1.0-SNAPSHOT.jar 
 
